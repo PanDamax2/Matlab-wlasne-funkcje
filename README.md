@@ -224,6 +224,7 @@ Mnoży elementy `A(i,j)` przez `B(i,j)`.
 Oblicza wartości własne macierzy `A` metodą charakterystycznego wielomianu.  
 - `A` musi być macierzą kwadratową.  
 
+
 ## Uwaga
 
 - Bin i hex muszą być stringami zapisanymi w pojedynczych `'` cudzysłowach.

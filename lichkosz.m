@@ -1,3 +1,5 @@
+% Dokumentacja https://github.com/PanDamax2/Matlab-wlasne-funkcje
+
 classdef lichkosz
     methods(Static)
         %% ------Konwertuje liczbę binarną na dziesiętną
@@ -183,17 +185,17 @@ classdef lichkosz
         end
         
         %% ------ Interpolacja danych (urodziny) metoda Newtona
-        function [yInterpolowana, bladAbs, bladWzgledny] = interpolacjaNewtonUrodziny(xWezly, yWezly, x, yRzeczywiste)
+        function [yInterpolowana, bladAbs, bladWzgledny] = interpolacjaNewtonUrodziny(xWezly, yWezly, x, y)
             if length(xWezly) ~= length(yWezly)
                 error('Wektory xWezly i yWezly musza miec taka sama dlugosc.');
             end
-            if ~isscalar(x) || ~isscalar(yRzeczywiste)
-                error('x i yRzeczywiste musza byc skalarami.');
+            if ~isscalar(x) || ~isscalar(y)
+                error('x i y musza byc skalarami.');
             end
             
             yInterpolowana = lichkosz.interpolacjaNewtona(xWezly, yWezly, x);
-            bladAbs = abs(yInterpolowana - yRzeczywiste);
-            bladWzgledny = (bladAbs / yRzeczywiste) * 100;
+            bladAbs = abs(yInterpolowana - y);
+            bladWzgledny = (bladAbs / y) * 100;
         end
 
         %% ------ Mnożenie macierzy przez skalar
@@ -348,6 +350,25 @@ classdef lichkosz
             wartosci_wlasne = roots(double(wspolczynniki));
         end
 
+        %% ------ Obliczanie błędu średniokwadratowego (MSE)
+        function mse = bladSredniokwadratowy(y, x)
+            % Sprawdzenie poprawności wejścia (wektory o tej samej długości)
+            if ~isvector(y) || ~isvector(x)
+                error('Błąd: Wejścia muszą być wektorami.');
+            end
+            if length(y) ~= length(x)
+                error('Błąd: Wektory y i x muszą mieć tę samą długość.');
+            end
+        
+            n = length(y);
+            suma = 0;
+            % Iteracyjne sumowanie kwadratów błędów
+            for i = 1:n
+                suma = suma + (y(i) - x(i))^2;
+            end
+            % Obliczanie średniej z sumy kwadratów
+            mse = suma / n;
+        end
 
 
 
